@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    overflow-x: hidden;
+    background-color: #ffffff;
+    color: #1f2937;
+}
+
+.container-custom {
+    @apply max-w-7xl mx-auto px-6;
+}
+
+.section-padding {
+    @apply py-16 md:py-24;
+}
+
+.text-gradient {
+    background: linear-gradient(
+        90deg,
+        #14532d,
+        #15803d
+    );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.glass-card {
+    @apply bg-white/70 backdrop-blur-lg border border-white/30 shadow-xl;
+}
+
+.primary-btn {
+    @apply bg-green-800 text-white px-6 py-3 rounded-full font-medium transition-all duration-300 hover:scale-105 hover:bg-green-900;
+}
+
+.secondary-btn {
+    @apply border border-green-800 text-green-800 px-6 py-3 rounded-full font-medium transition-all duration-300 hover:bg-green-50;
+}

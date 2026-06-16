@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    overflow-x: hidden;
+    background: #ffffff;
+    color: #1f2937;
+}
+
+.section-padding {
+    @apply py-16 md:py-24;
+}
+
+.container-custom {
+    @apply max-w-7xl mx-auto px-6;
+}
