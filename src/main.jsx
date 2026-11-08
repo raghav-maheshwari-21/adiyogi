@@ -1,11 +1,15 @@
-import React from "react";
+import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import { HelmetProvider } from "react-helmet-async";
 import App from "./App";
+import { applyTheme, loadAnalytics } from "./lib/bootstrap";
 import "./index.css";
 
+applyTheme();
+
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <HelmetProvider>
+    <StrictMode>
         <App />
-    </HelmetProvider>
+    </StrictMode>
 );
+
+loadAnalytics();

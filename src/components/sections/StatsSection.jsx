@@ -1,38 +1,27 @@
 import { siteConfig } from "../../config/siteConfig";
+import CountUp from "../common/CountUp";
+import Reveal from "../common/Reveal";
 
 export default function StatsSection() {
-    const stats = [
-        {
-            label: "Happy Students",
-            value: siteConfig.stats.students,
-        },
-        {
-            label: "Years Experience",
-            value: siteConfig.stats.experience,
-        },
-        {
-            label: "Sessions Conducted",
-            value: siteConfig.stats.sessions,
-        },
-    ];
+    const stats = siteConfig.stats || [];
+    if (!stats.length) return null;
 
     return (
-        <section className="section-padding bg-green-50">
-            <div className="container-custom grid md:grid-cols-3 gap-8">
-                {stats.map((stat) => (
-                    <div
-                        key={stat.label}
-                        className="glass-card rounded-3xl p-8 text-center hover:-translate-y-2 transition"
-                    >
-                        <h3 className="text-5xl font-bold text-green-800">
-                            {stat.value}
-                        </h3>
-
-                        <p className="mt-3 text-gray-600">
-                            {stat.label}
-                        </p>
-                    </div>
-                ))}
+        <section aria-label="Our numbers" className="relative z-10 -mt-6 lg:-mt-10">
+            <div className="container-x">
+                <Reveal className="grid grid-cols-2 overflow-hidden rounded-[28px] bg-brand-900 text-cream shadow-lift lg:grid-cols-4">
+                    {stats.map((s, i) => (
+                        <div
+                            key={s.label}
+                            className={`relative px-6 py-8 text-center sm:py-10 ${i % 2 === 1 ? "border-l border-cream/10" : ""} ${i >= 2 ? "border-t border-cream/10 lg:border-t-0" : ""} ${i === 2 ? "lg:border-l" : ""}`}
+                        >
+                            <p className="font-display text-5xl font-semibold text-cream sm:text-6xl">
+                                <CountUp end={s.value} suffix={s.suffix} decimals={s.decimals || 0} />
+                            </p>
+                            <p className="mt-2 text-sm font-medium tracking-wide text-cream/70">{s.label}</p>
+                        </div>
+                    ))}
+                </Reveal>
             </div>
         </section>
     );

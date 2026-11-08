@@ -1,91 +1,27 @@
-import {
-    Heart,
-    Moon,
-    Brain,
-    Activity,
-    Smile,
-    Dumbbell,
-} from "lucide-react";
-
-const benefits = [
-    {
-        title: "Reduce Stress",
-        icon: Brain,
-        description:
-            "Calm your mind and improve emotional wellbeing.",
-    },
-    {
-        title: "Better Sleep",
-        icon: Moon,
-        description:
-            "Improve sleep quality naturally.",
-    },
-    {
-        title: "Mental Clarity",
-        icon: Smile,
-        description:
-            "Enhance focus and concentration.",
-    },
-    {
-        title: "Improve Flexibility",
-        icon: Activity,
-        description:
-            "Increase mobility and reduce stiffness.",
-    },
-    {
-        title: "Weight Management",
-        icon: Dumbbell,
-        description:
-            "Support your fitness goals.",
-    },
-    {
-        title: "Heart Health",
-        icon: Heart,
-        description:
-            "Improve circulation and vitality.",
-    },
-];
+import { siteConfig } from "../../config/siteConfig";
+import Icon from "../common/Icon";
+import Reveal from "../common/Reveal";
+import SectionHeading from "../common/SectionHeading";
 
 export default function BenefitsSection() {
+    const b = siteConfig.benefits;
+    if (!b?.enabled) return null;
+
     return (
-        <section className="section-padding bg-green-50">
-            <div className="container-custom">
+        <section className="section">
+            <div className="container-x">
+                <SectionHeading eyebrow={b.eyebrow} title={b.title} subtitle={b.subtitle} />
 
-                <div className="text-center mb-14">
-                    <span className="text-green-700 font-semibold">
-                        Benefits
-                    </span>
-
-                    <h2 className="text-4xl font-bold mt-3">
-                        Why Practice Yoga?
-                    </h2>
-                </div>
-
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                    {benefits.map((benefit) => {
-                        const Icon = benefit.icon;
-
-                        return (
-                            <div
-                                key={benefit.title}
-                                className="glass-card rounded-3xl p-8 hover:-translate-y-2 transition"
-                            >
-                                <div className="bg-green-100 rounded-2xl w-14 h-14 flex items-center justify-center">
-                                    <Icon className="text-green-700" />
-                                </div>
-
-                                <h3 className="mt-6 text-xl font-semibold">
-                                    {benefit.title}
-                                </h3>
-
-                                <p className="mt-3 text-gray-600">
-                                    {benefit.description}
-                                </p>
+                <div className="mt-14 grid gap-px overflow-hidden rounded-[28px] bg-brand-900/[0.08] ring-1 ring-brand-900/[0.08] sm:grid-cols-2 lg:grid-cols-3">
+                    {b.items.map((item, i) => (
+                        <Reveal key={item.title} delay={(i % 3) * 0.08} className="group bg-cream p-8 transition-colors duration-300 hover:bg-white sm:p-10">
+                            <div className="icon-chip transition-colors duration-300 group-hover:bg-brand-800 group-hover:text-cream">
+                                <Icon name={item.icon} size={22} />
                             </div>
-                        );
-                    })}
-
+                            <h3 className="mt-6 text-2xl font-semibold">{item.title}</h3>
+                            <p className="mt-2 leading-relaxed text-muted">{item.description}</p>
+                        </Reveal>
+                    ))}
                 </div>
             </div>
         </section>

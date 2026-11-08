@@ -1,75 +1,44 @@
-import {
-    Users,
-    ShieldCheck,
-    Clock,
-    Sparkles,
-    Laptop,
-    UserCheck,
-} from "lucide-react";
-
-const features = [
-    {
-        title: "Personalized Attention",
-        icon: UserCheck,
-    },
-    {
-        title: "Small Batch Sizes",
-        icon: Users,
-    },
-    {
-        title: "Certified Instructor",
-        icon: ShieldCheck,
-    },
-    {
-        title: "Flexible Timings",
-        icon: Clock,
-    },
-    {
-        title: "Traditional + Modern Techniques",
-        icon: Sparkles,
-    },
-    {
-        title: "Online & Offline Classes",
-        icon: Laptop,
-    },
-];
+import { siteConfig } from "../../config/siteConfig";
+import Icon from "../common/Icon";
+import Reveal from "../common/Reveal";
 
 export default function WhyChooseUs() {
+    const w = siteConfig.whyChooseUs;
+    if (!w?.enabled) return null;
+
     return (
-        <section className="section-padding bg-green-50">
-            <div className="container-custom">
+        <section className="section relative overflow-clip bg-brand-900 text-cream">
+            <div
+                className="pointer-events-none absolute inset-0 opacity-60"
+                style={{ background: "radial-gradient(50rem 30rem at 100% 0%, rgb(110 127 76 / 0.45), transparent 60%)" }}
+                aria-hidden="true"
+            />
+            <div className="container-x relative grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+                <Reveal className="lg:sticky lg:top-28 lg:self-start">
+                    <span className="eyebrow text-accent-soft before:bg-accent-soft">{w.eyebrow}</span>
+                    <h2 className="heading-xl mt-4 text-cream">{w.title}</h2>
+                    <p className="mt-5 text-lg leading-relaxed text-cream/70">{w.subtitle}</p>
+                    {w.image && (
+                        <div className="mt-10 hidden aspect-[4/3] overflow-hidden rounded-[28px] lg:block">
+                            <img src={w.image} alt="" loading="lazy" decoding="async" className="size-full object-cover" />
+                        </div>
+                    )}
+                </Reveal>
 
-                <div className="text-center mb-14">
-                    <span className="text-green-700 font-semibold">
-                        Why Choose AdiYogi
-                    </span>
-
-                    <h2 className="text-4xl font-bold mt-3">
-                        Experience the Difference
-                    </h2>
-                </div>
-
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                    {features.map((feature) => {
-                        const Icon = feature.icon;
-
-                        return (
-                            <div
-                                key={feature.title}
-                                className="glass-card rounded-3xl p-8 flex items-center gap-4 hover:-translate-y-2 transition"
-                            >
-                                <div className="bg-green-100 rounded-2xl p-4">
-                                    <Icon className="text-green-700" />
-                                </div>
-
-                                <span className="font-semibold">
-                                    {feature.title}
-                                </span>
+                <div className="grid gap-4 sm:grid-cols-2">
+                    {w.features.map((f, i) => (
+                        <Reveal
+                            key={f.title}
+                            delay={(i % 2) * 0.08}
+                            className="rounded-3xl border border-cream/10 bg-cream/[0.04] p-7 transition-colors duration-300 hover:border-cream/20 hover:bg-cream/[0.07]"
+                        >
+                            <div className="flex size-12 items-center justify-center rounded-2xl bg-accent/90 text-white">
+                                <Icon name={f.icon} size={22} />
                             </div>
-                        );
-                    })}
-
+                            <h3 className="mt-6 text-2xl font-semibold text-cream">{f.title}</h3>
+                            {f.description && <p className="mt-2 leading-relaxed text-cream/65">{f.description}</p>}
+                        </Reveal>
+                    ))}
                 </div>
             </div>
         </section>

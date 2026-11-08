@@ -1,101 +1,83 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Minus } from "lucide-react";
+import { useId, useState } from "react";
+import clsx from "clsx";
+import { Plus } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { siteConfig } from "../../config/siteConfig";
+import { trackEvent, whatsappLink } from "../../lib/utils";
+import Reveal from "../common/Reveal";
+import SectionHeading from "../common/SectionHeading";
 
 export default function FAQ() {
-    const [activeIndex, setActiveIndex] = useState(null);
-
-    const toggleFAQ = (index) => {
-        setActiveIndex((prev) =>
-            prev === index ? null : index
-        );
-    };
+    const [openIndex, setOpenIndex] = useState(0);
+    const uid = useId();
+    const faqs = siteConfig.faqs || [];
+    if (!faqs.length) return null;
 
     return (
-        <section
-            className="section-padding bg-green-50"
-        >
-            <div className="container-custom">
-
-                <div className="text-center mb-14">
-
-                    <span className="text-green-700 font-semibold">
-                        FAQs
-                    </span>
-
-                    <h2 className="text-4xl font-bold mt-3">
-                        Frequently Asked Questions
-                    </h2>
-
-                    <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-                        Have questions? We've answered the most common ones below.
-                    </p>
-
+        <section id="faq" className="section">
+            <div className="container-x grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+                <div className="lg:sticky lg:top-28 lg:self-start">
+                    <SectionHeading
+                        align="left"
+                        eyebrow="FAQs"
+                        title="Questions, Answered"
+                        subtitle="Everything you need to know before your first class."
+                    />
+                    <Reveal className="mt-8 rounded-3xl bg-brand-50 p-7 ring-1 ring-brand-100">
+                        <p className="font-display text-2xl font-semibold text-brand-900">Still have a question?</p>
+                        <p className="mt-2 text-muted">We usually reply within an hour during studio timings.</p>
+                        <a
+                            href={whatsappLink("Namaste 🙏 I have a question about your yoga classes.")}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => trackEvent("contact_click", { method: "whatsapp", source: "faq" })}
+                            className="btn mt-5 bg-[#25D366] text-white hover:bg-[#1ebe5b]"
+                        >
+                            <FaWhatsapp size={19} aria-hidden="true" /> Ask on WhatsApp
+                        </a>
+                    </Reveal>
                 </div>
 
-                <div className="max-w-4xl mx-auto space-y-5">
-
-                    {siteConfig.faqs.map((faq, index) => {
-                        const isOpen =
-                            activeIndex === index;
-
+                <Reveal className="divide-y divide-brand-900/10 border-y border-brand-900/10">
+                    {faqs.map((faq, i) => {
+                        const isOpen = openIndex === i;
+                        const panelId = `${uid}-panel-${i}`;
                         return (
-                            <div
-                                key={faq.question}
-                                className="glass-card rounded-3xl overflow-hidden"
-                            >
-                                <button
-                                    onClick={() =>
-                                        toggleFAQ(index)
-                                    }
-                                    className="w-full flex items-center justify-between p-6 text-left"
-                                >
-                                    <span className="text-lg font-semibold">
+                            <div key={faq.question}>
+                                <h3 className="font-sans">
+                                    <button
+                                        type="button"
+                                        onClick={() => setOpenIndex(isOpen ? null : i)}
+                                        aria-expanded={isOpen}
+                                        aria-controls={panelId}
+                                        className="flex w-full items-center justify-between gap-6 py-6 text-left text-lg font-semibold text-brand-900 transition-colors hover:text-accent-dark"
+                                    >
                                         {faq.question}
-                                    </span>
-
-                                    {isOpen ? (
-                                        <Minus className="text-green-700" />
-                                    ) : (
-                                        <Plus className="text-green-700" />
-                                    )}
-                                </button>
-
-                                <AnimatePresence initial={false}>
-
-                                    {isOpen && (
-                                        <motion.div
-                                            initial={{
-                                                height: 0,
-                                                opacity: 0,
-                                            }}
-                                            animate={{
-                                                height: "auto",
-                                                opacity: 1,
-                                            }}
-                                            exit={{
-                                                height: 0,
-                                                opacity: 0,
-                                            }}
-                                            transition={{
-                                                duration: 0.3,
-                                            }}
-                                            className="overflow-hidden"
+                                        <span
+                                            className={clsx(
+                                                "flex size-9 shrink-0 items-center justify-center rounded-full transition-[transform,background-color,color] duration-300",
+                                                isOpen ? "rotate-45 bg-brand-800 text-cream" : "bg-brand-50 text-brand-800"
+                                            )}
                                         >
-                                            <div className="px-6 pb-6 text-gray-600 leading-relaxed">
-                                                {faq.answer}
-                                            </div>
-                                        </motion.div>
-                                    )}
-
-                                </AnimatePresence>
+                                            <Plus size={18} aria-hidden="true" />
+                                        </span>
+                                    </button>
+                                </h3>
+                                {/* CSS grid-rows trick: smooth height animation with no JS measuring */}
+                                <div
+                                    id={panelId}
+                                    role="region"
+                                    className="grid transition-[grid-template-rows] duration-300 ease-out"
+                                    style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
+                                >
+                                    <div className="overflow-hidden">
+                                        <p className="pr-14 pb-6 leading-relaxed text-muted">{faq.answer}</p>
+                                    </div>
+                                </div>
                             </div>
                         );
                     })}
-
-                </div>
-
+                </Reveal>
             </div>
         </section>
     );

@@ -1,7 +1,15 @@
+import { LazyMotion, MotionConfig, domAnimation } from "framer-motion";
+import LeadModalProvider from "./context/LeadModalProvider";
 import Home from "./pages/Home";
 
-function App() {
-    return <Home />;
+export default function App() {
+    return (
+        <LazyMotion features={domAnimation} strict>
+            <MotionConfig reducedMotion="user">
+                <LeadModalProvider>
+                    <Home />
+                </LeadModalProvider>
+            </MotionConfig>
+        </LazyMotion>
+    );
 }
-
-export default App;

@@ -1,48 +1,49 @@
-import { motion } from "framer-motion";
-import { Phone } from "lucide-react";
+import { ArrowRight, Phone } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { siteConfig } from "../../config/siteConfig";
+import { useLeadModal } from "../../context/leadContext";
+import { telLink, trackEvent, whatsappLink } from "../../lib/utils";
+import Reveal from "../common/Reveal";
 
 export default function CTASection() {
+    const { cta } = siteConfig;
+    const { openLeadModal } = useLeadModal();
+
     return (
-        <section className="section-padding">
-            <div className="container-custom">
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="bg-gradient-to-r from-green-700 to-green-500 rounded-[40px] px-8 py-16 text-center text-white"
-                >
-                    <h2 className="text-4xl md:text-5xl font-bold">
-                        Begin Your Yoga Journey Today
-                    </h2>
+        <section className="pb-20 md:pb-28">
+            <div className="container-x">
+                <Reveal className="relative isolate overflow-hidden rounded-[36px] bg-brand-900 px-6 py-16 text-center sm:px-12 md:py-24">
+                    {cta.image && (
+                        <img src={cta.image} alt="" loading="lazy" decoding="async" className="absolute inset-0 -z-10 size-full object-cover opacity-35" />
+                    )}
+                    <div className="absolute inset-0 -z-10 bg-gradient-to-br from-brand-900/95 via-brand-900/75 to-brand-800/60" aria-hidden="true" />
 
-                    <p className="mt-5 max-w-2xl mx-auto text-green-50">
-                        Experience the benefits of yoga through expert guidance,
-                        personalized attention, and a supportive community.
-                    </p>
+                    <span className="eyebrow text-accent-soft before:bg-accent-soft">First Class Free</span>
+                    <h2 className="mx-auto mt-5 max-w-3xl text-4xl leading-[1.08] font-semibold text-cream sm:text-5xl lg:text-6xl">{cta.title}</h2>
+                    <p className="mx-auto mt-6 max-w-2xl text-lg text-cream/75">{cta.subtitle}</p>
 
-                    <div className="flex flex-col sm:flex-row justify-center gap-5 mt-10">
+                    <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+                        <button type="button" onClick={() => openLeadModal({ source: "final_cta" })} className="btn-accent px-8 py-4 text-base">
+                            {siteConfig.hero.primaryCta} <ArrowRight size={18} aria-hidden="true" />
+                        </button>
                         <a
-                            href={`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(siteConfig.whatsappMessage)}`}
+                            href={whatsappLink()}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-white text-green-700 px-8 py-4 rounded-full font-semibold flex items-center justify-center gap-2 hover:scale-105 transition"
+                            onClick={() => trackEvent("contact_click", { method: "whatsapp", source: "final_cta" })}
+                            className="btn-light px-7 py-4 text-base"
                         >
-                            <FaWhatsapp size={20} />
-                            Enquire on WhatsApp
+                            <FaWhatsapp size={20} className="text-[#1faa53]" aria-hidden="true" /> WhatsApp
                         </a>
-
                         <a
-                            href={`tel:${siteConfig.phone}`}
-                            className="border border-white px-8 py-4 rounded-full font-semibold flex items-center justify-center gap-2 hover:bg-white hover:text-green-700 transition"
+                            href={telLink()}
+                            onClick={() => trackEvent("contact_click", { method: "phone", source: "final_cta" })}
+                            className="btn-ghost-light px-7 py-4 text-base"
                         >
-                            <Phone size={20} />
-                            Call Now
+                            <Phone size={18} aria-hidden="true" /> Call Now
                         </a>
                     </div>
-                </motion.div>
+                </Reveal>
             </div>
         </section>
     );

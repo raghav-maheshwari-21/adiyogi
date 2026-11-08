@@ -1,148 +1,105 @@
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { useRef } from "react";
+import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { siteConfig } from "../../config/siteConfig";
+import { initials } from "../../lib/utils";
+import Reveal from "../common/Reveal";
+import SectionHeading from "../common/SectionHeading";
+import Stars from "../common/Stars";
 
+const avatarColors = ["#6E7F4C", "#C4815F", "#3A4628", "#8C9E6B", "#A1613F"];
+
+/** Native scroll-snap carousel: buttery on touch devices, zero JS animation. */
 export default function Testimonials() {
-    const testimonials = siteConfig.testimonials;
+    const list = siteConfig.testimonials || [];
+    const rating = siteConfig.googleRating;
+    const track = useRef(null);
+    if (!list.length) return null;
 
-    const [currentIndex, setCurrentIndex] = useState(0);
-
-    const nextSlide = () => {
-        setCurrentIndex((prev) =>
-            prev === testimonials.length - 1 ? 0 : prev + 1
-        );
+    const scroll = (dir) => {
+        const el = track.current;
+        if (!el) return;
+        const card = el.querySelector("li");
+        el.scrollBy({ left: dir * (card ? card.offsetWidth + 24 : el.clientWidth), behavior: "smooth" });
     };
-
-    const prevSlide = () => {
-        setCurrentIndex((prev) =>
-            prev === 0 ? testimonials.length - 1 : prev - 1
-        );
-    };
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            nextSlide();
-        }, 5000);
-
-        return () => clearInterval(interval);
-    }, []);
 
     return (
-        <section
-            id="reviews"
-            className="section-padding bg-green-50 overflow-hidden"
-        >
-            <div className="container-custom">
-
-                {/* Heading */}
-
-                <div className="text-center mb-14">
-
-                    <span className="text-green-700 font-semibold">
-                        Testimonials
-                    </span>
-
-                    <h2 className="text-4xl font-bold mt-3">
-                        What Our Students Say
-                    </h2>
-
-                    <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
-                        Real stories from people who transformed their lives through yoga.
-                    </p>
-
-                </div>
-
-                {/* Slider */}
-
-                <div className="relative max-w-4xl mx-auto">
-
-                    <AnimatePresence mode="wait">
-
-                        <motion.div
-                            key={currentIndex}
-                            initial={{ opacity: 0, x: 60 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -60 }}
-                            transition={{ duration: 0.4 }}
-                            className="glass-card rounded-[32px] p-10 text-center"
-                        >
-                            {/* Avatar */}
-
-                            <img
-                                src={testimonials[currentIndex].image}
-                                alt={testimonials[currentIndex].name}
-                                className="w-24 h-24 rounded-full object-cover mx-auto border-4 border-white shadow-lg"
-                            />
-
-                            {/* Stars */}
-
-                            <div className="flex justify-center gap-1 mt-6">
-
-                                {[...Array(testimonials[currentIndex].rating)].map(
-                                    (_, index) => (
-                                        <Star
-                                            key={index}
-                                            size={20}
-                                            className="fill-yellow-400 text-yellow-400"
-                                        />
-                                    )
-                                )}
-
+        <section id="reviews" className="section overflow-hidden">
+            <div className="container-x">
+                <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+                    <SectionHeading
+                        align="left"
+                        eyebrow="Testimonials"
+                        title="Real Stories From Our Students"
+                        subtitle="People of every age and fitness level have found strength and calm with us."
+                    />
+                    <div className="flex items-center gap-4">
+                        {rating?.enabled && (
+                            <a
+                                href={rating.reviewsUrl || undefined}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="mr-2 rounded-2xl bg-white px-5 py-3 shadow-soft ring-1 ring-brand-900/5"
+                            >
+                                <p className="flex items-center gap-2 font-display text-3xl font-semibold text-brand-900">
+                                    {rating.value} <Stars size={15} />
+                                </p>
+                                <p className="text-xs font-medium text-muted">{rating.count} reviews on Google</p>
+                            </a>
+                        )}
+                        {list.length > 1 && (
+                            <div className={`flex gap-2 ${list.length <= 3 ? "lg:hidden" : ""} ${list.length <= 2 ? "sm:hidden" : ""}`}>
+                                {[-1, 1].map((dir) => (
+                                    <button
+                                        key={dir}
+                                        type="button"
+                                        onClick={() => scroll(dir)}
+                                        aria-label={dir < 0 ? "Previous review" : "Next review"}
+                                        className="flex size-12 items-center justify-center rounded-full bg-white text-brand-900 shadow-soft ring-1 ring-brand-900/10 transition-colors hover:bg-brand-800 hover:text-cream"
+                                    >
+                                        {dir < 0 ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
+                                    </button>
+                                ))}
                             </div>
-
-                            {/* Review */}
-
-                            <p className="text-lg text-gray-700 mt-6 italic leading-relaxed">
-                                "{testimonials[currentIndex].review}"
-                            </p>
-
-                            {/* Name */}
-
-                            <h4 className="mt-8 text-2xl font-semibold">
-                                {testimonials[currentIndex].name}
-                            </h4>
-
-                        </motion.div>
-
-                    </AnimatePresence>
-
-                    {/* Controls */}
-
-                    <button
-                        onClick={prevSlide}
-                        className="absolute top-1/2 -translate-y-1/2 left-0 md:-left-16 bg-white shadow-lg p-3 rounded-full hover:scale-105 transition"
-                    >
-                        <ChevronLeft />
-                    </button>
-
-                    <button
-                        onClick={nextSlide}
-                        className="absolute top-1/2 -translate-y-1/2 right-0 md:-right-16 bg-white shadow-lg p-3 rounded-full hover:scale-105 transition"
-                    >
-                        <ChevronRight />
-                    </button>
-
+                        )}
+                    </div>
                 </div>
 
-                {/* Dots */}
-
-                <div className="flex justify-center gap-3 mt-10">
-
-                    {testimonials.map((_, index) => (
-                        <button
-                            key={index}
-                            onClick={() => setCurrentIndex(index)}
-                            className={`w-3 h-3 rounded-full transition ${
-                                currentIndex === index
-                                    ? "bg-green-700"
-                                    : "bg-green-200"
-                            }`}
-                        />
-                    ))}
-
-                </div>
-
+                <Reveal>
+                    <ul
+                        ref={track}
+                        className="no-scrollbar -mx-5 mt-12 flex snap-x snap-mandatory scroll-px-5 gap-6 overflow-x-auto px-5 pt-2 pb-6 sm:-mx-6 sm:scroll-px-6 sm:px-6 lg:-mx-8 lg:scroll-px-8 lg:px-8"
+                    >
+                        {list.map((t, i) => (
+                            <li
+                                key={t.name}
+                                className="card flex w-[86%] shrink-0 snap-start flex-col p-8 sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
+                            >
+                                <div className="flex items-center justify-between">
+                                    <Stars count={t.rating || 5} />
+                                    <Quote size={32} className="text-brand-100" aria-hidden="true" />
+                                </div>
+                                <p className="mt-5 flex-1 font-display text-[1.45rem] leading-snug text-brand-900">“{t.review}”</p>
+                                <div className="mt-7 flex items-center gap-3 border-t border-brand-900/[0.07] pt-5">
+                                    {t.image ? (
+                                        <img src={t.image} alt="" width="48" height="48" loading="lazy" decoding="async" className="size-12 rounded-full object-cover" />
+                                    ) : (
+                                        <span
+                                            className="flex size-12 items-center justify-center rounded-full font-semibold text-white"
+                                            style={{ background: avatarColors[i % avatarColors.length] }}
+                                            aria-hidden="true"
+                                        >
+                                            {initials(t.name)}
+                                        </span>
+                                    )}
+                                    <div>
+                                        <p className="font-semibold text-brand-900">{t.name}</p>
+                                        {t.detail && <p className="text-sm text-muted">{t.detail}</p>}
+                                    </div>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </Reveal>
             </div>
         </section>
     );
