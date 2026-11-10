@@ -28,28 +28,28 @@ export const siteConfig = {
     website: "",
 
     /* ---------------- Contact ---------------- */
-    phone: "+919876543210",
-    phoneDisplay: "+91 98765 43210",
-    whatsapp: "919876543210",
+    phone: "+918349413347",
+    phoneDisplay: "+91 83494 13347",
+    whatsapp: "918349413347",
     whatsappMessage: "Namaste 🙏 I would like to know more about your yoga classes.",
     email: "info@adiyogi.com",
-    address: "Indore, Madhya Pradesh",
+    address: "Jhabua, Madhya Pradesh",
     // Google Maps → Share → Embed a map → copy the src="…" URL. Leave empty to auto-generate from address.
-    mapEmbedUrl: "",
+    mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.4823585208514!2d74.58715527509607!3d22.76789317935309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39610dc96e3bdb1b%3A0x161f8dac4c4ff8c6!2sMitali's%20dance%20studio%20jhabua!5e1!3m2!1sen!2sin!4v1794304917609!5m2!1sen!2sin",
     // Link opened by "Get Directions". Leave empty to auto-generate from address.
-    mapLink: "",
+    mapLink: "https://www.google.com/maps/dir/22.7778361,74.5814659/Mitali's+dance+studio+jhabua,+IndusInd+bank,+Rajwada,+2nd+floor%E2%9C%94%EF%B8%8F,+chok,+Jhabua,+Madhya+Pradesh+457661/@22.7728339,74.5804482,1610m/data=!3m2!1e3!4b1!4m18!1m7!3m6!1s0x39610dc96e3bdb1b:0x161f8dac4c4ff8c6!2sMitali's+dance+studio+jhabua!8m2!3d22.7678932!4d74.5897302!16s%2Fg%2F11t2c1n7vm!4m9!1m1!4e1!1m5!1m1!1s0x39610dc96e3bdb1b:0x161f8dac4c4ff8c6!2m2!1d74.5897302!2d22.7678932!3e9?entry=ttu&g_ep=EgoyMDI2MTEwNC4wIKXMDSoASAFQAw%3D%3D",
 
-    timings: ["Morning: 6:00 AM – 8:00 AM", "Evening: 5:00 PM – 8:00 PM"],
+    timings: ["Morning: 6:00 AM – 9:00 AM"],
 
     enquiryButtonText: "Book Free Trial",
 
     /* ---------------- SEO ---------------- */
     seo: {
-        title: "AdiYogi Yoga Classes in Indore | Book a Free Trial",
+        title: "AdiYogi Yoga Classes in Jhabua | Book a Free Trial",
         description:
-            "Certified yoga classes in Indore — Hatha, Power Yoga, Meditation, Prenatal, Senior & Kids yoga. Online & offline batches. Book your free trial class today.",
+            "Certified yoga classes in Jhabua — Hatha, Power Yoga, Meditation, Prenatal, Senior & Kids yoga. Online & offline batches. Book your free trial class today.",
         keywords:
-            "yoga classes Indore, yoga near me, power yoga, prenatal yoga, meditation classes, online yoga classes",
+            "yoga classes Jhabua, yoga near me, power yoga, prenatal yoga, meditation classes, online yoga classes",
         ogImage: "/images/og-image.jpg",
     },
 
@@ -85,7 +85,7 @@ export const siteConfig = {
 
     /* ---------------- Hero ---------------- */
     hero: {
-        eyebrow: "Certified Yoga Studio in Indore",
+        eyebrow: "Certified Yoga Studio in Jhabua",
         titleLines: ["Transform Your Body,"],
         titleHighlight: "Calm Your Mind.",
         subtitle:
@@ -236,12 +236,12 @@ export const siteConfig = {
         enabled: true,
         eyebrow: "Schedule & Plans",
         title: "Find a Batch That Fits Your Day",
-        subtitle: "Morning and evening batches, six days a week. Join in person or live online.",
+        subtitle: "Morning batches, six days a week. Join in person or live online.",
         batches: [
-            { name: "Early Morning", time: "6:00 – 7:00 AM", days: "Mon – Sat", mode: "Studio & Online", note: "Few seats left" },
-            { name: "Morning", time: "7:00 – 8:00 AM", days: "Mon – Sat", mode: "Studio & Online" },
-            { name: "Evening", time: "5:00 – 6:00 PM", days: "Mon – Sat", mode: "Studio" },
-            { name: "Late Evening", time: "7:00 – 8:00 PM", days: "Mon – Sat", mode: "Online", note: "Popular" },
+            { name: "Early Morning", time: "6:00 – 7:00 AM", days: "Mon – Sat", mode: "Studio", note: "Few seats left" },
+            { name: "Morning", time: "7:00 – 8:00 AM", days: "Mon – Sat", mode: "Studio", note: "Popular"},
+            { name: "Morning", time: "8:00 – 9:00 AM", days: "Mon – Sat", mode: "Studio" },
+            // { name: "Late Evening", time: "7:00 – 8:00 PM", days: "Mon – Sat", mode: "Online", note: "Popular" },
         ],
     },
 
@@ -262,7 +262,7 @@ export const siteConfig = {
             },
             {
                 name: "Monthly",
-                price: "₹2,000",
+                price: "₹1,500",
                 period: "/ month",
                 description: "Ideal to build a steady, consistent practice.",
                 features: ["Unlimited classes in your batch", "Studio or online", "Progress check-ins", "WhatsApp support"],
@@ -271,7 +271,7 @@ export const siteConfig = {
             },
             {
                 name: "Quarterly",
-                price: "₹5,400",
+                price: "₹4,300",
                 period: "/ 3 months",
                 description: "Best value for lasting transformation.",
                 features: ["Everything in Monthly", "Save 10%", "Personalised diet tips", "Switch batches freely"],
@@ -394,9 +394,9 @@ export const siteConfig = {
     },
 
     socialLinks: {
-        instagram: "https://instagram.com/",
-        facebook: "https://facebook.com/",
-        youtube: "https://youtube.com/",
+        instagram: "https://www.instagram.com/adiyogi_08_/",
+        facebook: "https://www.instagram.com/adiyogi_08_/",
+        youtube: "https://www.instagram.com/adiyogi_08_/",
     },
 
     footerAbout:
