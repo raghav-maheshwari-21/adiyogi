@@ -93,7 +93,8 @@ export const siteConfig = {
         primaryCta: "Book Your Free Trial",
         secondaryCta: "Chat on WhatsApp",
         highlights: ["First class free", "All levels welcome", "Online & offline"],
-        image: unsplash("1575052814086-f385e2e2ad1b", 1000, 1250),
+        // image: unsplash("1575052814086-f385e2e2ad1b", 1000, 1250),
+        image: "/images/hero.jpeg",
         imageAlt: "Yoga practice at AdiYogi studio",
         nextBatchLabel: "Next batch starts",
         nextBatchValue: "Monday · 6:00 AM",
@@ -121,7 +122,7 @@ export const siteConfig = {
     instructor: {
         name: "Aditi Kothari",
         role: "Founder & Lead Instructor",
-        image: "/images/instructor.webp",
+        image: "/images/instructor-real.jpeg",
         experience: "5+ Years Experience",
         description:
             "Helping students achieve physical strength, mental clarity, and holistic wellness through traditional and modern yoga practices.",
@@ -306,14 +307,14 @@ export const siteConfig = {
 
     /* ---------------- Gallery ---------------- */
     gallery: [
-        { title: "Group Practice", image: unsplash("1545205597-3d9d02c29597", 1200) },
-        { title: "Strength & Flexibility", image: unsplash("1599901860904-17e6ed7083a0", 900) },
-        { title: "Balance & Focus", image: unsplash("1603988363607-e1e4a66962c6", 900) },
-        { title: "Studio Session", image: unsplash("1518611012118-696072aa579a", 900) },
-        { title: "Meditation", image: unsplash("1506126613408-eca07ce68773", 900) },
-        { title: "Mindful Movement", image: unsplash("1600881333168-2ef49b341f30", 1200) },
-        { title: "Sunrise Flow", image: unsplash("1561049501-e1f96bdd98fd", 900) },
-        { title: "Wellness Journey", image: unsplash("1573590330099-d6c7355ec595", 900) },
+        { title: "Group Practice", image: "/images/studio/group.jpeg" },
+        { title: "Strength & Flexibility", image: "images/studio/strech-flexiblity.jpeg" },
+        { title: "Balance & Focus", image: "images/studio/balance-focus.jpeg" },
+        { title: "Studio Session", image: "images/studio/studio-session.jpeg" },
+        { title: "Meditation", image: "/images/instructor-real.jpeg" },
+        { title: "Mindful Movement", image: "images/studio/mindful-movement.jpeg" },
+        { title: "Sunrise Flow", image: "images/studio/sunrise-flow.jpeg" },
+        { title: "Wellness Journey", image: "images/studio/wellness.jpeg" },
     ],
 
     /* ---------------- FAQs ---------------- */

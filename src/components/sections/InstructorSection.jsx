@@ -23,7 +23,7 @@ export default function InstructorSection() {
                             height="408"
                             loading="lazy"
                             decoding="async"
-                            className="size-full object-cover object-[50%_30%]"
+                            className="size-full object-cover"
                         />
                     </div>
                     <div className="absolute -right-3 -bottom-6 rounded-3xl bg-brand-900 px-6 py-5 text-cream shadow-lift sm:-right-6">
