@@ -129,8 +129,8 @@ export const siteConfig = {
         quote: "Yoga is not about touching your toes — it's about what you learn on the way down.",
         qualifications: [
             "Certified Yoga Instructor",
-            "Diploma in Yogic Science",
-            "Prenatal Yoga Specialist",
+            "PG Diploma in Yoga Therapy , DAVV, Indore",
+            "200+ Hours of Yoga Teacher Training, Rishikesh",
         ],
     },
 
